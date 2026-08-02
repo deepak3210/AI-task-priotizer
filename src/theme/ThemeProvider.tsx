@@ -1,12 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from 'react'
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { selectThemeMode } from '@/redux/slices/settingsSlice'
@@ -14,15 +6,7 @@ import { setThemeMode } from '@/redux/slices/settingsSlice'
 import { createAppTheme } from './muiTheme'
 import { resolveThemeMode } from '@/utils'
 import type { ThemeMode } from '@/types'
-
-interface ThemeContextValue {
-  mode: 'light' | 'dark'
-  themeMode: ThemeMode
-  toggleTheme: () => void
-  setTheme: (mode: ThemeMode) => void
-}
-
-const ThemeContext = createContext<ThemeContextValue | null>(null)
+import { ThemeContext } from './useAppTheme'
 
 interface AppThemeProviderProps {
   children: ReactNode
@@ -91,10 +75,4 @@ export function AppThemeProvider({ children }: AppThemeProviderProps) {
   )
 }
 
-export function useAppTheme(): ThemeContextValue {
-  const context = useContext(ThemeContext)
-  if (!context) {
-    throw new Error('useAppTheme must be used within AppThemeProvider')
-  }
-  return context
-}
+
